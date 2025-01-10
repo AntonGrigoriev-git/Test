@@ -4,12 +4,12 @@
 
 **1.** Клонируйте репозиторий:
 ```
-git clone https://github.com/AntonGrigoriev-git/Development.git
+git clone https://github.com/AntonGrigoriev-git/Test.git
 ```
 
 **2.** Перейдите в директорию проекта, где находится `manage.py`:
 ```
-cd .\Development\ProjectFlow\
+cd .\Test\ProjectFlow\
 ```
 
 **3.** Создайте виртуальное окружение:
