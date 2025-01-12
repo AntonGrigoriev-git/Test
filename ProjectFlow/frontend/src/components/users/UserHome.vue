@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import ProjectDashboard from '../projects/ProjectDashboard.vue';
 
 export default {
@@ -25,7 +25,7 @@ export default {
     ...mapState(['user']) // Получаем данные пользователя из Vuex
   },
   mounted() {
-    this.$store.dispatch('fetchUserInfo'); // Вызываем действие для получения информации о пользователе
+    this.fetchUserInfo(); // Вызываем действие для получения информации о пользователе
   },
   data() {
     return {
@@ -33,9 +33,15 @@ export default {
     };
   },
   methods: {
-    logout() {
-      this.$store.commit('clearUser');
-      this.$router.push('/');
+    ...mapActions(['clearUserInfo']), // Подключаем действие для очистки информации о пользователе
+    async logout() {
+      console.log('Logout initiated');
+      await this.clearUserInfo(); // Вызываем действие для очистки информации о пользователе
+      console.log('User info cleared');
+      this.$router.push('/'); // Перенаправляем на главную страницу
+    },
+    async fetchUserInfo() {
+      await this.$store.dispatch('fetchUserInfo'); // Вызываем действие для получения информации о пользователе
     }
   }
 };

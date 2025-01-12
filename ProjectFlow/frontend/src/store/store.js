@@ -14,6 +14,7 @@ export const store = createStore({
       state.user = user;
     },
     clearUser(state) {
+      console.log('Clearing user state');
       state.user = {
         firstName: '',
         lastName: '',
@@ -34,6 +35,10 @@ export const store = createStore({
         lastName: data.last_name,
         username: `${data.first_name} ${data.last_name}`
       });
+    },
+    clearUserInfo({ commit }) {
+      console.log('Clearing user info');
+      commit('clearUser');
     }
   }
 });
