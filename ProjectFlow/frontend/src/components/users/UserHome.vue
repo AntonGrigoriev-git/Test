@@ -16,6 +16,38 @@
 </template>
 
 <script>
+// import { mapState, mapActions } from 'vuex';
+// import ProjectDashboard from '../projects/ProjectDashboard.vue';
+
+// export default {
+//   components: { ProjectDashboard },
+//   computed: {
+//     ...mapState(['user']) // Получаем данные пользователя из Vuex
+//   },
+//   mounted() {
+//     this.fetchUserInfo(); // Вызываем действие для получения информации о пользователе
+//   },
+//   data() {
+//     return {
+//       projects: []
+//     };
+//   },
+//   methods: {
+//     ...mapActions(['clearUserInfo']), // Подключаем действие для очистки информации о пользователе
+//     async logout() {
+//       console.log('Logout initiated');
+//       await this.clearUserInfo(); // Вызываем действие для очистки информации о пользователе
+//       console.log('User info cleared');
+//       this.$router.push('/'); // Перенаправляем на главную страницу
+//     },
+//     async fetchUserInfo() {
+//       await this.$store.dispatch('fetchUserInfo'); // Вызываем действие для получения информации о пользователе
+//     }
+//   }
+// };
+
+
+
 import { mapState, mapActions } from 'vuex';
 import ProjectDashboard from '../projects/ProjectDashboard.vue';
 
@@ -33,7 +65,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['clearUserInfo']), // Подключаем действие для очистки информации о пользователе
+    ...mapActions(['clearUserInfo', 'fetchUserInfo']), // Подключаем действия для очистки информации о пользователе и получения информации о пользователе
     async logout() {
       console.log('Logout initiated');
       await this.clearUserInfo(); // Вызываем действие для очистки информации о пользователе
@@ -41,10 +73,17 @@ export default {
       this.$router.push('/'); // Перенаправляем на главную страницу
     },
     async fetchUserInfo() {
-      await this.$store.dispatch('fetchUserInfo'); // Вызываем действие для получения информации о пользователе
+      try {
+        await this.fetchUserInfo(); // Вызываем действие для получения информации о пользователе
+      } catch (error) {
+        console.error('Ошибка при получении информации о пользователе:', error);
+        // Здесь вы можете добавить логику для обработки ошибок, например, показать уведомление пользователю
+      }
     }
   }
 };
+
+
 </script>
 
 <style scoped>

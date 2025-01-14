@@ -1,19 +1,27 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from .models import CustomUser
 
 class LoginView(APIView):
+    permission_classes = [AllowAny]  # Позволяет доступ всем пользователям
+
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(request, username=email, password=password)
         if user is not None:
-            login(request, user)
-            return Response(status=status.HTTP_200_OK)
+            # Генерация токенов
+            access_token = AccessToken.for_user(user)
+            refresh_token = RefreshToken.for_user(user)
+
+            return Response({
+                'access': str(access_token),
+                'refresh': str(refresh_token),
+            }, status=status.HTTP_200_OK)
         return Response({'error': 'Неверные учетные данные'}, status=status.HTTP_400_BAD_REQUEST)
 
 
