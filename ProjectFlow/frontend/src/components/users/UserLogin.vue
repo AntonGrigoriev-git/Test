@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2>Вход</h2>
-    <form @submit.prevent="login" class="form">
+    <form @submit.prevent="handleLogin" class="form">
       <label for="email">Email:</label>
       <input type="email" v-model="email" required class="input-field">
       

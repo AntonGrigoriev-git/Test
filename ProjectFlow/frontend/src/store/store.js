@@ -77,7 +77,7 @@ export const store = createStore({
   },
   actions: {
     async login({ commit }, { email, password }) {
-      const response = await fetch('http://localhost:8000/api/token/', {
+      const response = await fetch('http://localhost:8000/users/api/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
