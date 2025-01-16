@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2>Вход</h2>
-    <form @submit.prevent="handleLogin" class="form">
+    <form @submit.prevent="login" class="form">
       <label for="email">Email:</label>
       <input type="email" v-model="email" required class="input-field">
       
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     ...mapActions(['login']), // Подключаем действие для входа
-    async handleLogin() {
+    async login() {
       this.error = null; // Сбрасываем ошибку перед новым входом
       try {
         await this.login({ email: this.email, password: this.password }); // Вызываем действие для входа
